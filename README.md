@@ -1,2 +1,2 @@
-# PKAN_entrgables
+# PKAN_entregables
 Software de grado para presentar al docente
