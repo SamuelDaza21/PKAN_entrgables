@@ -1,0 +1,555 @@
+{
+  "info": {
+    "_postman_id": "6fbb6cba-ea6f-4835-9ea7-e22f35759bbd",
+    "name": "Pruebas Unitarias Api_Simus",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48504095",
+    "_collection_link": "https://go.postman.co/collection/48504095-6fbb6cba-ea6f-4835-9ea7-e22f35759bbd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET Usuarios",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Configuraciones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/configuraciones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "configuraciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Historial de Resultados",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/historial_resultados",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "historial_resultados"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Juegos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/juegos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "juegos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Resultados",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/resultados",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "resultados"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Sesiones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Usuarios",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n \"ID_usuario\": 59,\r\n \"ID_grado\": 1,\r\n \"Nickname\": \"Liam\",\r\n \"FechaNacimiento\": \"2013-10-07\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Configuraciones",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_config\": 2,\r\n        \"ID_usuario\": 59,\r\n        \"modo_control\": \"manual\",\r\n        \"volumen_musica\": 100,\r\n        \"volumen_efectos\": 50\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/Configuraciones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "Configuraciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Historial de Resultados",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "    {\r\n        \"ID_sesion\": 54,\r\n        \"Nombre_juego\": \"Pares mágicos\",\r\n        \"puntaje_nuevo\": 78,\r\n        \"Nuevo_Acierto\": 9,\r\n        \"Nuevo_error\": 1,\r\n        \"puntaje_antiguo\": 65,\r\n        \"Aciertos_antiguo\": 7,\r\n        \"Errores_antiguo\": 3\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/historial_resultados",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "historial_resultados"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Juegos",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n \"Nombre\": \"Eco-aventura\",\r\n \"Descripcion\": \"Juego interactivo donde el jugador explora diferentes ecosistemas y debe responder preguntas sobre flora, fauna y cuidado del medio ambiente.\",\r\n \"Nivel_Educativo\": \"Primaria\",\r\n \"Area_Conocimiento\": \"Ciencias Naturales\",\r\n \"Objetivos\": \"Fomentar el conocimiento sobre los ecosistemas y promover la conciencia ambiental en los estudiantes.\",\r\n \"Competencias\": \"Observación, comprensión científica básica, pensamiento crítico y toma de decisiones.\",\r\n \"Contenidos\": \"Ecosistemas, animales, plantas, reciclaje y cuidado del medio ambiente.\",\r\n \"Evaluacion\": \"Puntaje basado en respuestas correctas, tiempo de resolución y decisiones tomadas durante el juego.\",\r\n \"Procedimiento\": \"El jugador recorre distintos escenarios naturales y responde preguntas para avanzar y completar misiones ecológicas.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/juegos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "juegos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Resultados",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_sesion\": 24,\r\n        \"ID_juego\": 7,\r\n        \"Puntaje\": 80,\r\n        \"Aciertos\": 65,\r\n        \"Errores\": 40,\r\n        \"Fecha\": \"2025-08-01\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/resultados",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "resultados"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Sesiones",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_sesion\": 67,\r\n        \"ID_usuario\": 59,\r\n        \"Fecha_Registro\": \"2025-11-20\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Usuarios",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_usuario\": 1,\r\n        \"ID_grado\": 3,\r\n        \"Nickname\": \"SamuelD\",\r\n        \"FechaNacimiento\": \"2013-06-08\"\r\n        } \r\n    ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/usuarios/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "usuarios",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Configuraciones",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_config\": 1,\r\n        \"ID_usuario\": 1,\r\n        \"modo_control\": \"facial\",\r\n        \"volumen_musica\": 100,\r\n        \"volumen_efectos\": 98\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/configuraciones/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "configuraciones",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Historial de Resultados",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"id\": 2,\r\n        \"ID_sesion\": 24,\r\n        \"Nombre_juego\": \"Pares mágicos\",\r\n        \"puntaje_nuevo\": 78,\r\n        \"Nuevo_Acierto\": 9,\r\n        \"Nuevo_error\": 1,\r\n        \"puntaje_antiguo\": 65,\r\n        \"Aciertos_antiguo\": 7,\r\n        \"Errores_antiguo\": 3\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/historial_resultados/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "historial_resultados",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Juegos",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_juego\": 8,\r\n        \"Nombre\": \"Eco-aventura\",\r\n        \"Descripcion\": \"Juego interactivo donde el jugador explora diferentes ecosistemas y debe responder preguntas sobre flora, fauna y cuidado del medio ambiente.\",\r\n        \"Nivel_Educativo\": \"Primaria\",\r\n        \"Area_Conocimiento\": \"Ciencias Naturales\",\r\n        \"Objetivos\": \"Fomentar el conocimiento sobre los ecosistemas y promover la conciencia ambiental en los estudiantes.\",\r\n        \"Competencias\": \"Observación, comprensión científica básica, pensamiento crítico y toma de decisiones.\",\r\n        \"Contenidos\": \"Ecosistemas, animales, plantas, reciclaje y cuidado del medio ambiente.\",\r\n        \"Evaluacion\": \"Puntaje basado en respuestas correctas, tiempo de resolución y decisiones tomadas durante el juego.\",\r\n        \"Procedimiento\": \"El jugador recorre distintos escenarios naturales y responde preguntas para avanzar y completar misiones ecológicas.\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/juegos/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "juegos",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Resultados",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": " {\r\n        \"ID_resultado\": 2,\r\n        \"ID_sesion\": 24,\r\n        \"ID_juego\": 1,\r\n        \"Puntaje\": 0,\r\n        \"Aciertos\": 0,\r\n        \"Errores\": 5,\r\n        \"Fecha\": \"2025-08-01\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/resultados/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "resultados",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Sesiones",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_sesion\": 1,\r\n        \"ID_usuario\": 1,\r\n        \"Fecha_Registro\": \"2025-11-12\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/24",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "24"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Usuarios",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"ID_usuario\": 59,\r\n        \"ID_grado\": 1,\r\n        \"Nickname\": \"Liam\",\r\n        \"FechaNacimiento\": \"2013-10-07T05:00:00.000Z\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/usuarios/59",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "usuarios",
+            "59"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
