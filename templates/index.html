@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Tareas | Proyecto XP</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Lista de Tareas</h1>
+      <p class="subtitle">Gestión de Tareas — Metodología XP</p>
+    </header>
+
+    <!-- Formulario para agregar tareas -->
+    <section class="add-task">
+      <form action="{{ url_for('crear_tarea') }}" method="post">
+        <input
+          type="text"
+          name="titulo"
+          placeholder="Escribe una nueva tarea…"
+          required
+          autofocus
+        />
+        <button type="submit" class="btn btn-primary">Agregar</button>
+      </form>
+    </section>
+
+    <!-- Resumen de tareas -->
+    {% set total = tareas | length %}
+    {% set completadas = tareas | selectattr('completada') | list | length %}
+    <div class="stats">
+      <span>Total: <strong>{{ total }}</strong></span>
+      <span>Completadas: <strong>{{ completadas }}</strong></span>
+      <span>Pendientes: <strong>{{ total - completadas }}</strong></span>
+    </div>
+
+    <!-- Lista de tareas -->
+    {% if tareas %}
+    <ul class="task-list">
+      {% for tarea in tareas %}
+      <li class="task-item {% if tarea.completada %}done{% endif %}">
+
+        <!-- Cambiar estado -->
+        <form action="{{ url_for('cambiar_estado_tarea', tarea_id=tarea.id) }}" method="post" class="inline">
+          <button type="submit" class="btn-check" title="Marcar o desmarcar">
+            {% if tarea.completada %}{% else %}{% endif %}
+          </button>
+        </form>
+
+        <!-- Titulo en modo lectura -->
+        <span class="task-title" id="titulo-{{ tarea.id }}">{{ tarea.titulo }}</span>
+
+        <!-- Formulario de edicion -->
+        <form
+          action="{{ url_for('editar_tarea', tarea_id=tarea.id) }}"
+          method="post"
+          class="edit-form hidden"
+          id="formulario-edicion-{{ tarea.id }}"
+        >
+          <input type="text" name="titulo" value="{{ tarea.titulo }}" required />
+          <button type="submit" class="btn btn-save">Guardar</button>
+          <button type="button" class="btn btn-cancel" onclick="cancelarEdicion({{tarea.id}})">Cancelar</button>
+        </form>
+
+        <!-- Acciones -->
+        <div class="actions" id="acciones-{{ tarea.id }}">
+          <button class="btn btn-edit" onclick="abrirEdicion({{tarea.id}})">Editar</button>
+
+          <form action="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}" method="post" class="inline">
+            <button
+              type="submit"
+              class="btn btn-delete"
+              onclick="return confirm('¿Eliminar esta tarea?')"
+            >Eliminar</button>
+          </form>
+        </div>
+
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">No hay tareas todavía.</p>
+    {% endif %}
+  </div>
+
+  <script>
+    function abrirEdicion(id) {
+      var elementoTitulo = document.getElementById('titulo-' + id);
+      elementoTitulo.classList.add('hidden');
+      document.getElementById('acciones-' + id).classList.add('hidden');
+      document.getElementById('formulario-edicion-' + id).classList.remove('hidden');
+    }
+    function cancelarEdicion(id) {
+      document.getElementById('titulo-' + id).classList.remove('hidden');
+      document.getElementById('acciones-' + id).classList.remove('hidden');
+      document.getElementById('formulario-edicion-' + id).classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
