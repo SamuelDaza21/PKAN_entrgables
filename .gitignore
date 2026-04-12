@@ -2,17 +2,17 @@
 .venv/
 
 # Python
-__pycache__/
-*.pyc
+#__pycache__/
+#*.pyc
 
 # Base de datos
-*.db
+#*.db
 
 # Variables de entorno
-.env
+#.env
 
 # VS Code
-.vscode/
+#.vscode/
 
 # Logs
-*.log
+#*.log
