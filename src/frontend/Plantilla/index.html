@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sistema Huella Academica</title>
+	<link rel="stylesheet" href="/estilo/css/styles.css">
+</head>
+<body>
+	<header class="hero">
+		<div class="hero__overlay"></div>
+		<div class="hero__content">
+			<h1>Sistema de Registro de Entrada</h1>
+			<p>Control de asistencia universitaria mediante reconocimiento facial local.</p>
+		</div>
+	</header>
+
+	<main class="layout">
+		<section class="card">
+			<h2>Registro de Estudiantes</h2>
+			<form id="registro-form" class="form-grid">
+				<label>
+					Nombre completo
+					<input id="nombre" type="text" required placeholder="Ej. Ana Torres Velasco">
+				</label>
+				<label>
+					Codigo institucional
+					<input id="codigo" type="text" required placeholder="Ej. U1234567">
+				</label>
+				<label>
+					Programa academico
+					<input id="programa" type="text" required placeholder="Ej. Ingenieria de Sistemas">
+				</label>
+				<button type="submit" class="btn btn-primary">Registrar estudiante</button>
+			</form>
+			<p id="registro-feedback" class="feedback"></p>
+		</section>
+
+		<section class="card camera-card">
+			<h2>Captura de Camara</h2>
+			<div class="camera-wrap">
+				<video id="video" autoplay playsinline></video>
+				<canvas id="canvas" class="hidden"></canvas>
+			</div>
+			<div class="actions">
+				<button id="capturar-registro" class="btn">Capturar para registro</button>
+				<button id="capturar-reconocimiento" class="btn btn-primary">Reconocer ingreso</button>
+				<button id="cargar-historial" class="btn">Actualizar historial</button>
+			</div>
+			<p id="camara-feedback" class="feedback"></p>
+		</section>
+
+		<section class="card">
+			<h2>Estudiantes Registrados</h2>
+			<div class="table-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Codigo</th>
+							<th>Programa</th>
+						</tr>
+					</thead>
+					<tbody id="tabla-estudiantes"></tbody>
+				</table>
+			</div>
+		</section>
+
+		<section class="card">
+			<h2>Historial de Asistencia</h2>
+			<div class="table-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th>Fecha y hora</th>
+							<th>Nombre</th>
+							<th>Codigo</th>
+							<th>Programa</th>
+						</tr>
+					</thead>
+					<tbody id="tabla-asistencias"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="/estilo/js/camara.js"></script>
+</body>
+</html>
+
