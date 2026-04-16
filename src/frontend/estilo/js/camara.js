@@ -1,6 +1,9 @@
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const videoRegistro = document.getElementById("video-registro");
+const canvasRegistro = document.getElementById("canvas-registro");
+
+const videoAcceso = document.getElementById("video-acceso");
+const canvasAcceso = document.getElementById("canvas-acceso");
+const ctx = canvasRegistro.getContext("2d");
 
 const registroForm = document.getElementById("registro-form");
 const nombreInput = document.getElementById("nombre");
@@ -32,23 +35,39 @@ async function iniciarCamara() {
 			video: { width: 960, height: 540 },
 			audio: false,
 		});
-		video.srcObject = stream;
+		if (videoRegistro) videoRegistro.srcObject = stream;
+		if (videoAcceso) videoAcceso.srcObject = stream;
 	} catch (error) {
 		showFeedback(camaraFeedback, "No fue posible acceder a la camara.", "error");
 	}
 }
 
 
-function capturarFoto() {
-	if (!video.videoWidth || !video.videoHeight) {
+function capturarFotoRegistro() {
+	if (!videoRegistro.videoWidth) {
 		throw new Error("La camara no esta lista.");
 	}
 
-	canvas.width = video.videoWidth;
-	canvas.height = video.videoHeight;
-	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+	canvasRegistro.width = videoRegistro.videoWidth;
+	canvasRegistro.height = videoRegistro.videoHeight;
+	const ctx = canvasRegistro.getContext("2d");
+	ctx.drawImage(videoRegistro, 0, 0);
 
-	return canvas.toDataURL("image/jpeg", 0.9);
+	return canvasRegistro.toDataURL("image/jpeg", 0.9);
+}
+
+function capturarFotoAcceso() {
+	if (!videoAcceso.videoWidth) {
+		throw new Error("La camara no esta lista.");
+	}
+
+	canvasAcceso.width = videoAcceso.videoWidth;
+	canvasAcceso.height = videoAcceso.videoHeight;
+
+	const ctx = canvasAcceso.getContext("2d");
+	ctx.drawImage(videoAcceso, 0, 0);
+
+	return canvasAcceso.toDataURL("image/jpeg", 0.9);
 }
 
 
@@ -111,10 +130,29 @@ async function cargarHistorial() {
 	renderAsistencias(asistencias);
 }
 
+function mostrarVista(vista) {
+	document.querySelectorAll(".vista").forEach(v => {
+		v.classList.remove("active");
+	});
+	document.getElementById("vista-" + vista).classList.add("active");
+}
+
+function mostrarResultado(estudiante) {
+	const contenedor= document.getElementById("resultado-reconocimiento");
+
+	contenedor.innerHTML= `
+		<div class="card">
+			<h3>Estudiante reconocido</h3>
+			<p><b>Nombre:</b> ${estudiante.nombre}</p>
+			<p><b>Código:</b> ${estudiante.codigo}</p>
+			<p><b>Programa:</b> ${estudiante.programa}</p>
+		</div> `;
+}
+
 
 btnCapturarRegistro.addEventListener("click", () => {
 	try {
-		fotoRegistro = capturarFoto();
+		fotoRegistro = capturarFotoRegistro();
 		showFeedback(camaraFeedback, "Foto lista para registrar al estudiante.", "success");
 	} catch (error) {
 		showFeedback(camaraFeedback, error.message, "error");
@@ -150,14 +188,12 @@ registroForm.addEventListener("submit", async (event) => {
 
 btnReconocer.addEventListener("click", async () => {
 	try {
-		const foto = capturarFoto();
+		const foto = capturarFotoAcceso();
 		const data = await requestApi("/api/reconocimiento", "POST", { fotoBase64: foto });
-		showFeedback(
-			camaraFeedback,
-			`Ingreso registrado: ${data.estudiante.nombre} (${data.estudiante.codigo})`,
-			"success"
-		);
-		await cargarHistorial();
+		
+		mostrarResultado(data.estudiante);
+
+		showFeedback(camaraFeedback,"Reconocimiento exitoso", "success");
 	} catch (error) {
 		showFeedback(camaraFeedback, error.message, "error");
 	}
@@ -177,4 +213,4 @@ btnCargarHistorial.addEventListener("click", async () => {
 iniciarCamara();
 cargarEstudiantes().catch(() => {});
 cargarHistorial().catch(() => {});
-
+mostrarVista("acceso");

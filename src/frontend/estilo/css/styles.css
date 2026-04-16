@@ -41,6 +41,7 @@ body {
 	position: relative;
 	z-index: 1;
 	max-width: 900px;
+	text-align: right;
 }
 
 .hero h1 {
@@ -186,6 +187,39 @@ th {
 	background: #f8fafc;
 	color: #334155;
 }
+
+.header-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu {
+	display: flex;
+	gap: 1rem;
+}
+
+.menu button {
+	background: white;
+	border: none;
+	padding: 8px 14px;
+	border-radius: 8px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.vista {
+	display: none;
+	padding: 2rem;
+}
+
+.vista.active {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	align-items: flex-start;
+}
+
 
 @media (max-width: 900px) {
 	.layout {

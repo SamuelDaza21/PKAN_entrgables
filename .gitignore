@@ -1,5 +1,6 @@
 # Entorno virtual
 .venv/
+.venv311/  
 
 # Python
 __pycache__/
@@ -16,3 +17,6 @@ __pycache__/
 
 # Logs
 *.log
+
+# IDE
+.idea/

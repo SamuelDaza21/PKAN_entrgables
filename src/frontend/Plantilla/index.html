@@ -8,81 +8,113 @@
 </head>
 <body>
 	<header class="hero">
-		<div class="hero__overlay"></div>
-		<div class="hero__content">
-			<h1>Sistema de Registro de Entrada</h1>
-			<p>Control de asistencia universitaria mediante reconocimiento facial local.</p>
+		<div class="header-bar">
+			<div class="menu">
+				<button onclick="mostrarVista('acceso')">Acceso</button>
+				<button onclick="mostrarVista('registro')">Registro</button>
+				<button onclick="mostrarVista('estudiantes')">Estudiantes</button>
+				<button onclick="mostrarVista('historial')">Historial</button>
+			</div>
+		
+			<div class="hero__content">
+				<h1>Sistema de Registro de Entrada</h1>
+				<p>Control de asistencia universitaria mediante reconocimiento facial local.</p>
+			</div>
 		</div>
 	</header>
 
-	<main class="layout">
-		<section class="card">
-			<h2>Registro de Estudiantes</h2>
-			<form id="registro-form" class="form-grid">
-				<label>
-					Nombre completo
-					<input id="nombre" type="text" required placeholder="Ej. Ana Torres Velasco">
-				</label>
-				<label>
-					Codigo institucional
-					<input id="codigo" type="text" required placeholder="Ej. U1234567">
-				</label>
-				<label>
-					Programa academico
-					<input id="programa" type="text" required placeholder="Ej. Ingenieria de Sistemas">
-				</label>
-				<button type="submit" class="btn btn-primary">Registrar estudiante</button>
-			</form>
-			<p id="registro-feedback" class="feedback"></p>
-		</section>
+	<main>
+		<div id="vista-registro" class="vista">
+			<section class="card">
+				<h2>Registro de Estudiantes</h2>
+				<form id="registro-form" class="form-grid">
+					<label>
+						Nombre completo
+						<input id="nombre" type="text" required placeholder="Ej. Ana Torres Velasco">
+					</label>
+					<label>
+						Codigo institucional
+						<input id="codigo" type="text" required placeholder="Ej. U1234567">
+					</label>
+					<label>
+						Programa academico
+						<input id="programa" type="text" required placeholder="Ej. Ingenieria de Sistemas">
+					</label>
+					<button type="submit" class="btn btn-primary">Registrar estudiante</button>
+				</form>
+				<p id="registro-feedback" class="feedback"></p>
+			</section>
 
-		<section class="card camera-card">
-			<h2>Captura de Camara</h2>
-			<div class="camera-wrap">
-				<video id="video" autoplay playsinline></video>
-				<canvas id="canvas" class="hidden"></canvas>
-			</div>
-			<div class="actions">
-				<button id="capturar-registro" class="btn">Capturar para registro</button>
-				<button id="capturar-reconocimiento" class="btn btn-primary">Reconocer ingreso</button>
+			<section class="card camera-card">
+				<h2>Captura de Camara</h2>
+				<div class="camera-wrap">
+					<video id="video-registro" autoplay playsinline></video>
+					<canvas id="canvas-registro" class="hidden"></canvas>
+				</div>
+				<div class="actions">
+					<button id="capturar-registro" class="btn">Capturar para registro</button>
+				</div>
+			</section>
+	
+		</div>
+
+		<div id="vista-acceso" class="vista">
+			<section class="card camera-card">
+				<h2>Reconocimiento de Ingreso</h2>
+				<div class="camera-wrap">
+					<video id="video-acceso" autoplay playsinline></video>
+					<canvas id="canvas-acceso" class="hidden"></canvas>
+				</div>
+				<div class="actions">
+					<button id="capturar-reconocimiento" class="btn btn-primary">Reconocer ingreso</button>
+				</div>
+				<p id="camara-feedback" class="feedback"></p>
+			</section>
+
+			<div id="resultado-reconocimiento"></div>
+		</div>
+
+
+
+		<div id="vista-estudiantes" class="vista">
+			<section class="card">
+				<h2>Estudiantes Registrados</h2>
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Codigo</th>
+								<th>Programa</th>
+							</tr>
+						</thead>
+						<tbody id="tabla-estudiantes"></tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+
+		<div id="vista-historial" class="vista">
+
+			<section class="card">
+				<h2>Historial de Asistencia</h2>
 				<button id="cargar-historial" class="btn">Actualizar historial</button>
-			</div>
-			<p id="camara-feedback" class="feedback"></p>
-		</section>
-
-		<section class="card">
-			<h2>Estudiantes Registrados</h2>
-			<div class="table-wrap">
-				<table>
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Codigo</th>
-							<th>Programa</th>
-						</tr>
-					</thead>
-					<tbody id="tabla-estudiantes"></tbody>
-				</table>
-			</div>
-		</section>
-
-		<section class="card">
-			<h2>Historial de Asistencia</h2>
-			<div class="table-wrap">
-				<table>
-					<thead>
-						<tr>
-							<th>Fecha y hora</th>
-							<th>Nombre</th>
-							<th>Codigo</th>
-							<th>Programa</th>
-						</tr>
-					</thead>
-					<tbody id="tabla-asistencias"></tbody>
-				</table>
-			</div>
-		</section>
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th>Fecha y hora</th>
+								<th>Nombre</th>
+								<th>Codigo</th>
+								<th>Programa</th>
+							</tr>
+						</thead>
+						<tbody id="tabla-asistencias"></tbody>
+					</table>
+				</div>
+			</section>
+		</div>
 	</main>
 
 	<script src="/estilo/js/camara.js"></script>
