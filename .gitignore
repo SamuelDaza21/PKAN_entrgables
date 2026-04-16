@@ -12,6 +12,7 @@ build/
 venv/
 env/
 .venv/
+.venv311/ 
 
 # SQLite database (runtime artifact)
 todo.db

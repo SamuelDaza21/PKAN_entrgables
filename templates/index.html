@@ -7,25 +7,52 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
+  <button id="botonmostrarformulario" class="btn-flotante">
+    Añadir tarea +
+  </button>
+
+  <div id="formulario-flotante" class="formulario-flotante" style="display: none;">
+    <form action="{{ url_for('crear_tarea') }}" method="post" id="formAgregarTarea" class="formulario-flotante-form">
+        <input
+          type="text"
+          name="titulo"
+          id="inputTarea"
+          placeholder="Escribe una nueva tarea…"
+          required
+          autofocus
+        />
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" id="btncancelaragregar" class="btn btn-cancel">Cancelar</button>
+    </form>
+  </div>
   <div class="container">
     <header>
       <h1>Lista de Tareas</h1>
       <p class="subtitle">Gestión de Tareas — Metodología XP</p>
     </header>
 
-    <!-- Formulario para agregar tareas -->
-    <section class="add-task">
-      <form action="{{ url_for('crear_tarea') }}" method="post">
-        <input
-          type="text"
-          name="titulo"
-          placeholder="Escribe una nueva tarea…"
-          required
-          autofocus
-        />
-        <button type="submit" class="btn btn-primary">Agregar</button>
-      </form>
-    </section>
+    <div id="area-edicion" class="area-edicion hidden">
+        <div class="tarjeta-edicion-central">
+          <form id="form-editar-central" method="post">
+            <input 
+              type="text" 
+              id="input-editar-central" 
+              name="titulo"
+              class="task-title-edicion"
+            />
+          </form>
+
+          <div class="acciones-edicion">
+            <button class="btn btn-cancel" onclick="cancelarSeleccion()">Cancelar</button>
+
+            <button class="btn btn-edit" onclick="editarDesdeCentro()">Modificar</button>
+
+            <form id="form-eliminar-central" method="post">
+              <button type="submit" class="btn btn-delete">Eliminar</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
     <!-- Resumen de tareas -->
     {% set total = tareas | length %}
@@ -38,44 +65,13 @@
 
     <!-- Lista de tareas -->
     {% if tareas %}
-    <ul class="task-list">
+    <ul class="task-list lista-derecha" id="lista-derecha">
       {% for tarea in tareas %}
-      <li class="task-item {% if tarea.completada %}done{% endif %}">
-
-        <!-- Cambiar estado -->
-        <form action="{{ url_for('cambiar_estado_tarea', tarea_id=tarea.id) }}" method="post" class="inline">
-          <button type="submit" class="btn-check" title="Marcar o desmarcar">
-            {% if tarea.completada %}{% else %}{% endif %}
-          </button>
-        </form>
+      <li class="task-item {% if tarea.completada %}done{% endif %}" 
+      onclick="seleccionarTarea({{ tarea.id }}, '{{ tarea.titulo }}')">
 
         <!-- Titulo en modo lectura -->
         <span class="task-title" id="titulo-{{ tarea.id }}">{{ tarea.titulo }}</span>
-
-        <!-- Formulario de edicion -->
-        <form
-          action="{{ url_for('editar_tarea', tarea_id=tarea.id) }}"
-          method="post"
-          class="edit-form hidden"
-          id="formulario-edicion-{{ tarea.id }}"
-        >
-          <input type="text" name="titulo" value="{{ tarea.titulo }}" required />
-          <button type="submit" class="btn btn-save">Guardar</button>
-          <button type="button" class="btn btn-cancel" onclick="cancelarEdicion({{tarea.id}})">Cancelar</button>
-        </form>
-
-        <!-- Acciones -->
-        <div class="actions" id="acciones-{{ tarea.id }}">
-          <button class="btn btn-edit" onclick="abrirEdicion({{tarea.id}})">Editar</button>
-
-          <form action="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}" method="post" class="inline">
-            <button
-              type="submit"
-              class="btn btn-delete"
-              onclick="return confirm('¿Eliminar esta tarea?')"
-            >Eliminar</button>
-          </form>
-        </div>
 
       </li>
       {% endfor %}
@@ -86,17 +82,75 @@
   </div>
 
   <script>
-    function abrirEdicion(id) {
-      var elementoTitulo = document.getElementById('titulo-' + id);
-      elementoTitulo.classList.add('hidden');
-      document.getElementById('acciones-' + id).classList.add('hidden');
-      document.getElementById('formulario-edicion-' + id).classList.remove('hidden');
+
+  let tareaSeleccionadaId = null;
+
+  function seleccionarTarea(id, titulo) {
+    tareaSeleccionadaId = id;
+
+    const input = document.getElementById("input-editar-central");
+    input.value = titulo;
+    input.setAttribute("readonly", true);
+
+    document.getElementById("area-edicion").classList.remove("hidden");
+
+    // ✅ FIX eliminar (ruta correcta)
+    document.getElementById("form-eliminar-central").action = `/tareas/${id}/eliminar`;
+
+    // ✅ preparar formulario de edición
+    document.getElementById("form-editar-central").action = `/tareas/${id}/editar`;
+
+    document.getElementById("lista-derecha").style.opacity = "0.3";
+  }
+
+  function cancelarSeleccion() {
+    tareaSeleccionadaId = null;
+
+    document.getElementById("area-edicion").classList.add("hidden");
+    document.getElementById("lista-derecha").style.opacity = "1";
+  }
+
+  function editarDesdeCentro() {
+    const input = document.getElementById("input-editar-central");
+
+    if (input.hasAttribute("readonly")) {
+      // 👉 activar modo edición
+      input.removeAttribute("readonly");
+      input.focus();
+    } else {
+      // 👉 guardar cambios
+      document.getElementById("form-editar-central").submit();
     }
-    function cancelarEdicion(id) {
-      document.getElementById('titulo-' + id).classList.remove('hidden');
-      document.getElementById('acciones-' + id).classList.remove('hidden');
-      document.getElementById('formulario-edicion-' + id).classList.add('hidden');
-    }
+  }
+
+  /* BOTÓN AGREGAR */
+
+  const btnMostrar = document.getElementById('botonmostrarformulario');
+  const formularioFlotante = document.getElementById('formulario-flotante');
+  const btnCancelarAgregar = document.getElementById('btncancelaragregar');
+  const formularioAgregarTarea = document.getElementById('formAgregarTarea');
+  const inputTarea = document.getElementById('inputTarea');
+
+  btnMostrar.addEventListener('click', () => {
+    formularioFlotante.style.display = 'flex';
+    btnMostrar.style.display = 'none';
+    inputTarea.focus();
+  });
+
+  function ocultarFormulario() {
+    formularioFlotante.style.display = 'none';
+    btnMostrar.style.display = 'flex';
+    inputTarea.value = '';
+  }
+
+  btnCancelarAgregar.addEventListener('click', ocultarFormulario);
+
+  formularioAgregarTarea.addEventListener('submit', () => {
+    setTimeout(() => {
+      ocultarFormulario();
+    }, 100);
+  });
+
   </script>
 </body>
 </html>
