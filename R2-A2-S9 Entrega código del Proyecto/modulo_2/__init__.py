@@ -1,1 +1,0 @@
-"""Public mockup UI package."""
