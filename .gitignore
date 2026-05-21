@@ -1,0 +1,34 @@
+﻿# Entornos virtuales
+.venv/
+.venv311/
+venv/
+env/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Base de datos temporal
+todo.db
+*.db-shm
+*.db-wal
+
+# Archivos de calibración local
+calibration_*.json
+tutorial_completed_*.txt
+licencia.json
+
+# Reportes generados
+reportes/
+*.pdf
+
+# Archivos de log
+*.log
